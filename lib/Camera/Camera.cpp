@@ -1,14 +1,21 @@
 #include <Camera.h>
 
+int currentin = 0;
+
 void Camera::setup(){
   Serial3.begin(9600);
 }
 
 void Camera::update(){
   if(Serial3.available() >= 7) {
-    if(Serial3.read() == 255) {
-      for (int i = 0; i < CAM_BUFFER_NUM; i++){
-        camBuffer[i] = Serial3.read();
+    if(Serial3.read() == 255){
+      while(Serial3.read() != 255) {
+        for (int i = 0; i < CAM_BUFFER_NUM; i++){
+          currentin = Serial3.read();
+          if(currentin != -1){
+            camBuffer[i] = currentin;
+                }
+              }
            }
         }
     }
